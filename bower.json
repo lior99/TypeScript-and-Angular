@@ -1,0 +1,22 @@
+{
+  "name": "TypeScript-And-Angular",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lior99/TypeScript-and-Angular",
+  "description": "Angular using TypeScript",
+  "main": "index.html",
+  "moduleType": [],
+  "authors": [
+    "Lior Shtivelman"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}
