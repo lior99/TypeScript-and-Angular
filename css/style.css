@@ -1,0 +1,59 @@
+body{
+	margin:0;
+}
+
+
+.output{
+	padding: 10px
+	
+}
+
+.row{
+	margin:10px 10px;
+	font-family: 'Arial';
+	font-size:20px;
+	/*border: solid 1px #8F8F8F*/
+}
+
+.header{
+	background-color:#2B35FF;
+	color:#fff;
+	font-size: 28px;
+	padding:10px;
+	font-family: cursive;
+}
+
+.leagueTable{
+	border-collapse: collapse;
+	margin-top: 10px;
+
+}
+
+.leagueTable th{
+	background-color:#575758;
+	color:white;
+	padding:10px 0;
+	width:100px;
+	border:solid 1px black;
+}
+
+.leagueTable td{
+	padding:10px;
+	width:100px;
+	border:solid 1px black;
+	text-align: center;
+}
+
+.leagueTable tr:nth-child(even){
+	background-color:#DADADA;
+}
+
+.leagueTable tr:nth-child(odd){
+	background-color:#fff;
+}
+
+.leagueTable tr:nth-child(1){
+	background-color:#635AF5;
+	font-weight: bold;
+	color:#fff;
+}

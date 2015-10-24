@@ -1,0 +1,17 @@
+{
+  "name": "theNewAngularWay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Lior Shtivelman",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.4.7",
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.9.2"
+  }
+}
