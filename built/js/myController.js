@@ -1,3 +1,4 @@
+/// <reference path="./typings/angularjs/angular.d.ts"/>
 var myModule;
 (function (myModule) {
     'use strict';
@@ -11,9 +12,14 @@ var myModule;
             this._wins = wins;
             this._loss = loss;
             this._draws = draws;
-            // this._position = position;
+            this._teamName = this._name.toLowerCase().replace(' ', '_');
+            // this._points = points()
+            this._points = this._wins * 3 + this._draws;
         }
         Object.defineProperty(Team.prototype, "name", {
+            /***
+            properties
+            ***/
             get: function () {
                 return this._name;
             },
@@ -50,7 +56,7 @@ var myModule;
         });
         Object.defineProperty(Team.prototype, "points", {
             get: function () {
-                return this._wins * 3 + this._draws * 1;
+                return this._points;
             },
             enumerable: true,
             configurable: true
@@ -62,14 +68,26 @@ var myModule;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Team.prototype, "teamName", {
+            get: function () {
+                return this._teamName;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /*
+        methods
+        */
         Team.prototype.addWin = function () {
             this._wins++;
+            this._points += 3;
         };
         Team.prototype.addLoss = function () {
             this._loss++;
         };
         Team.prototype.addDraw = function () {
             this._draws++;
+            this._points++;
         };
         return Team;
     })();
@@ -86,7 +104,14 @@ var myModule;
             this._teams.push(new Team("Celta Vigo", 14, 0, 1));
             this._teams.push(new Team("Viaarieal", 4, 7, 4));
             this._teams.push(new Team("Atletico Bilbao", 1, 3, 11));
+            console.log("Testing....", this.getTeamByName('atletico_madrid'));
         }
+        myController.prototype.getTeamByName = function (name) {
+            var team = this._teams.filter(function (team) {
+                return team.teamName == name;
+            });
+            return team[0];
+        };
         Object.defineProperty(myController.prototype, "teams", {
             get: function () {
                 this._teams.sort(function (a, b) {
@@ -105,25 +130,21 @@ var myModule;
             configurable: true
         });
         myController.prototype.setScore = function () {
-            console.log("Hi there!!!");
-            //if (this.)
             if (this._game.score1 > this._game.score2) {
-                this._teams[2].addWin();
-                this._teams[4].addLoss();
+                this.getTeamByName("atletico_madrid").addWin();
+                this.getTeamByName("viaarieal").addLoss();
             }
             else {
                 if (this._game.score1 < this._game.score2) {
-                    this._teams[2].addLoss();
-                    this._teams[4].addWin();
+                    this.getTeamByName("atletico_madrid").addLoss();
+                    this.getTeamByName("viaarieal").addWin();
                 }
                 else {
-                    this._teams[2].addDraw();
-                    this._teams[4].addDraw();
+                    this.getTeamByName("atletico_madrid").addDraw();
+                    this.getTeamByName("viaarieal").addDraw();
                 }
             }
-            // $inject	
-            // $scope.$apply();
-            return this._teams;
+            //return this._teams;
         };
         Object.defineProperty(myController.prototype, "game", {
             get: function () {
@@ -136,3 +157,4 @@ var myModule;
     })();
     angular.module('myModule', []).controller('myController', myController);
 })(myModule || (myModule = {}));
+//# sourceMappingURL=myController.js.map

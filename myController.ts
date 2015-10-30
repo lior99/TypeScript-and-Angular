@@ -1,3 +1,4 @@
+/// <reference path="./typings/angularjs/angular.d.ts"/>
 module myModule {
 	'use strict';
 
@@ -12,16 +13,22 @@ module myModule {
 			private _wins: number;
 			private _loss: number;
 			private _draws: number;
-
+			private _teamName: string;
+			private _points: number;
 
 			constructor(name: string, wins?: number, loss?: number, draws?: number) {
 				this._name = name;
 				this._wins = wins;
 				this._loss = loss;
 				this._draws = draws;
-				// this._position = position;
+				this._teamName = this._name.toLowerCase().replace(' ', '_');
+				// this._points = points()
+				this._points = this._wins * 3 + this._draws; 
 			}
 
+			/***
+			properties
+			***/
 			get name(){
 				return this._name;
 			}	
@@ -43,15 +50,23 @@ module myModule {
 			}		
 
 			get points(){
-				return this._wins * 3 + this._draws * 1;
+				return this._points;
 			}	
 
 			get gamesPlayed(){
 				return this._wins + this._draws + this._loss;
 			}
 
+			get teamName() {
+				return this._teamName;
+			}
+
+			/* 
+			methods 
+			*/
 			addWin(){
 				this._wins++;
+				this._points += 3;
 			}
 
 			addLoss(){
@@ -60,9 +75,8 @@ module myModule {
 
 			addDraw(){
 				this._draws++;
+				this._points++;
 			}
-			
-
 		}
 
 	 class myController {
@@ -74,11 +88,21 @@ module myModule {
 
 	 	constructor() { 
 			  this._teams.push(new Team("Barcelona", 10, 2, 3));
-			  this._teams.push(new Team("Real Madrid", 8, 5, 2));
+			  this._teams.push(new Team("Real Madrid", 8, 5, 2)); 
 			  this._teams.push(new Team("Atletico Madrid", 8, 0, 7));
-			  this._teams.push(new Team("Celta Vigo", 14, 0 ,1));
-			  this._teams.push(new Team("Viaarieal", 4, 7, 4));
+			  this._teams.push(new Team("Celta Vigo", 14, 0, 1));
+			  this._teams.push(new Team("Viaarieal", 4, 7, 4)); 
 			  this._teams.push(new Team("Atletico Bilbao", 1, 3, 11));
+
+			  console.log("Testing....", this.getTeamByName('atletico_madrid'));
+	 	} 
+
+	 	getTeamByName(name:string){
+			  let team = this._teams.filter(team => {
+				  return team.teamName == name;
+			  });
+
+			  return team[0];
 	 	}
 
 	 	get teams(){
@@ -96,28 +120,23 @@ module myModule {
 	 	}
 
 	 	setScore(){
-			console.log("Hi there!!!");
-			if (this._game.score1 > this._game.score2){
-				this._teams[2].addWin();
-				this._teams[4].addLoss();
-			}
-			else{
-				if (this._game.score1 < this._game.score2){
-					this._teams[2].addLoss();
-					this._teams[4].addWin();
-				}
-				else{
-					this._teams[2].addDraw();
-					this._teams[4].addDraw();
-				}
-			}
-
-			// $inject	
-			// $scope.$apply();
-
-			return this._teams;
-
-
+				  if (this._game.score1 > this._game.score2) {
+					  this.getTeamByName("atletico_madrid").addWin();
+					  this.getTeamByName("viaarieal").addLoss();
+				  }
+				  else {
+					  if (this._game.score1 < this._game.score2) {
+						  this.getTeamByName("atletico_madrid").addLoss();
+						  this.getTeamByName("viaarieal").addWin();
+					  }
+					  else {
+						  this.getTeamByName("atletico_madrid").addDraw();
+						  this.getTeamByName("viaarieal").addDraw();
+					  }
+				  }
+	  	
+		
+			//return this._teams;
 	 	}
 
 	 	get game(){
@@ -125,6 +144,7 @@ module myModule {
 	 	}
 
 	 }
+
 
 	 angular.module('myModule', []).controller('myController', myController);
 

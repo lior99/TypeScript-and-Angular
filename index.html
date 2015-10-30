@@ -23,20 +23,20 @@
 					<th>Points</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="team in ctrl.teams | orderBy: $index">
-						<td>{{::$index+1}}</td>
+					<tr ng-repeat="team in ctrl.teams | orderBy: team.points">
+						<td>{{ $index+1}}</td>
 						<td>{{::team.name}}</td>
-						<td>{{::team.gamesPlayed }}</td>
-						<td>{{::team.wins}}</td>
-						<td>{{::team.draws}}</td>
-						<td>{{::team.loss}}</td>
-						<td>{{::team.points}}</td>
+						<td>{{ team.gamesPlayed }}</td>
+						<td>{{ team.wins}}</td>
+						<td>{{ team.draws}}</td>
+						<td>{{ team.loss}}</td>
+						<td>{{ team.points}}</td>
 					</tr>
 				</tbody>
 			</table>	
 		</div>		
 		<div>
-			<span>{{ ::ctrl.teams[2].name}} - {{ ::ctrl.teams[4].name }}</span>
+			<span>{{ ::ctrl.getTeamByName("atletico_madrid").name}} - {{ ::ctrl.getTeamByName("viaarieal").name }}</span>
 			<span>
 				<input type="text" ng-model="ctrl.game.score1"></input>
 				<input type="text" ng-model="ctrl.game.score2"></input>
@@ -47,6 +47,6 @@
 
 	</div>
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="build/myController.js"></script>
+	<script type="text/javascript" src="built/js/myController.js"></script>
 </body>
 </html>
